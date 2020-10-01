@@ -1,4 +1,61 @@
+#ifndef _LEXICAL_H_
+#define _LEXICAL_H_
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+using namespace std;
+
+vector<string> lexical(string input) {
+    string result, temp, token;
+    string lexicalinput = "";
+    vector<string> record;
+
+    //Goes through each character
+    for (int i = 0; i < input.size(); i++) {
+        //Stores token and lexicalinput into result string, pushes result string onto a vector of strings called records.
+        //lexical vector will return records 
+        if (bool separatorVerify = isSeparator(input[i])) {  //Checks if it is a separator
+            token = "Separator";
+            lexicalinput = input[i];
+            result = token + lexicalinput;
+            record.push_back(result);
+        }
+        else if (bool operatorCheck = isOperator(input[i])) { //Check if it is a operator
+            token = "Operator";
+            lexicalinput = input[i];
+            result = token + lexicalinput;
+            record.push_back(result);
+        }
+    }
+    return record;
+}
+
+bool isKeyword(string str) {
+    if(str == "if" || str == "fi" || str == "else" || str == "put" || str == "get" || str == "if" || str == "while" || 
+    str == "return" || str == "bool" || str == "true" || str == "false" || str == "int" || str == "double" 
+    || str == "float" ||  str == "string" || str == "char" || str == "if" || str == "break" ||str == "otherwise") { return true; }
+    else { 
+        return false; }
+}
+
+bool isOperator(char ch) {
+    if (ch == '+' || ch == '-' || ch == '*' ||
+        ch == '/' || ch == '>' || ch == '<' ||
+        ch == '=')
+        return (true);
+    return (false);
+}
+
+bool isSeparator(char ch) {
+    if(ch == '(' || ch == ')' || ch == '{' || ch == '}' || ch == ';' || ch == '[' || ch == ']') { return true; }
+    else { return false; }
+}
+
+
+#endif
+
+/*#include <iostream>
 #include <cstring>
 #include <stdbool.h>
 #include <stdio.h>
@@ -152,3 +209,4 @@ int main()
 
     return 0;
 }
+*/
