@@ -1,42 +1,44 @@
 #include "lexical.h"
+#include "lexical.cpp"
+
+void getFile(std::ifstream& file);
+void scanFile(std::ifstream& file);
 
 int main(int argc, const char** argv) {
-    ifstream testFile;
+    std::ifstream testFile;
     getFile(testFile);
     scanFile(testFile);
 
     return 0;
 }
 
-void getFile(ifstream &file) {  //Check if a file exists
-    string filename;
-    cout << "Enter filename for lexical analysis: ";
-    while(true) {
-        cin >> filename;
+/* Checking whether file exists in local directory */
+void getFile(std::ifstream& file) {
+    std::string filename;
+    std::cout << "Enter filename for lexical analysis: ";
+    while (true) {
+        std::cin >> filename;
         file.open(filename);
-        if (!file) {
-            cout << "File does not exist. Enter a valid filename: ";
-        } else {
-            break;
-        }
+        if (!file) { std::cout << "File cannot be found. Enter valid filename: "; }
+        else { break; }
     }
 }
 
-void scanFile(ifstream &file) {
-    ofstream userOutput;
+void scanFile(std::ifstream& file) {
+    std::ofstream userOutput;
     userOutput.open("output.txt");
-    int i = 0;
-    string temp;
-    vector<string> recordList;
-    string lexerOutput = "";
-    cout << "\nScanning file with words and index numbers\n";
-    userOutput << "Token \t Lexeme\n";
+    int x = 0;
+    std::string temp;
+    std::vector<std::string> recordList;
+    std::string lexerOutput = "";
+    std::cout << "\nScanning file with words and index numbers...\n";
+    userOutput << "Token '\t' Lexeme\n";
     while (file >> temp) {
-        i++;
-        recordList = lexical(temp);
-        for (int i = 0; i < recordList.size(); i++) {
-            cout << recordList[i] << "\n";
-            userOutput << recordList[i] << "\n";
+        x++;
+        recordList = lexer(temp);
+        for (int x = 0; x < recordList.size(); x++) {
+            std::cout << recordList[x] << "\n";
+            userOutput << recordList[x] << "\n";
         }
     }
     userOutput.close();
