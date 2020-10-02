@@ -1,0 +1,3 @@
+if ( lower < upper ) { break;}
+
+fi (lower < 10) { return lower;}
