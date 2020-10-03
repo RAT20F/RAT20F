@@ -24,6 +24,7 @@ void getFile(std::ifstream& file) {
     }
 }
 
+/* Scan each file and labels everything in the file*/
 void scanFile(std::ifstream& file) {
     std::ofstream userOutput;
     userOutput.open("output.txt");
