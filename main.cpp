@@ -24,13 +24,14 @@ void getFile(std::ifstream& file, int& i) {
     while (true) {
         std::cin >> filename;
         file.open(filename);
-        if (!file) { std::cout << "File cannot be found. Enter valid filename: "; }
+        if (!file) { std::cout << "File cannot be found. n ter valid filename: "; }
         else { break; }
     } 
     
   
 }
 
+/* getTestFiles scans each test_file and displays a*/
 void getTestfiles(std::ifstream& file, int& i){
 
     std::string new_test_case = "";
