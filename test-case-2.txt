@@ -1,3 +1,13 @@
-if ( lower < upper ) { break;}
+if ( lower < upper ) 
+{ 
+  break;
+}
 
-fi (lower < 10) { return lower;}
+fi (lower < 10) 
+{ 
+  return lower;
+}
+else
+{
+  return higher;
+}
