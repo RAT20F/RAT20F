@@ -4,25 +4,25 @@ std::vector<std::string> lexer(std::string input) {
     std::string token, lexeme = "";
     std::string result, temp;
     std::vector<std::string> records;
-    /* Go through each character */
-    for (int x = 0; x < input.size(); x++) {
+
+    for (int x = 0; x < input.size(); x++) {  /* Go through each character */
         /* Store token and lexeme into a result string. Push result string onto a vector of strings called records. Lexer will return records. */
-        /* Check if it is a separator. */
-        if (bool separatorCheck = isSeparator(input[x])) {
+
+        if (bool separatorCheck = isSeparator(input[x])) {  /* Check if it is a separator. */
             token = "Separator";
             lexeme = input[x];
             result = token + "\t" + lexeme;
             records.push_back(result);
         }
-        /* Check if it is an operator. */
-        else if (bool operatorCheck = isOperator(input[x])) {
+
+        else if (bool operatorCheck = isOperator(input[x])) {  /* Check if it is an operator. */
             token = "Operator";
             lexeme = input[x];
             result = token + "\t" + lexeme;
             records.push_back(result);
         }
-        /* Check if it is an integer. */
-        else if (intDFSM(input) == isdigit(input[x])) {
+
+        else if (intDFSM(input) == isdigit(input[x])) {  /* Check if it is an integer. */
             int y = x;
             std::string tempInt;
             bool real_holder = false;
@@ -34,16 +34,16 @@ std::vector<std::string> lexer(std::string input) {
                 tempInt.push_back(input[y]);
                 y++;
             }
-            //token = "Integer";
-            
-            if(real_holder){
+
+
+            if(real_holder){  //token = "Integer";
                 token = "Real";
                 }
 
             else {
                 token = "Integer";
             }
-            
+
             lexeme = tempInt;
             result = token + "\t" + lexeme;
             records.push_back(result);
@@ -80,14 +80,24 @@ std::vector<std::string> lexer(std::string input) {
 }
 
 int char_to_col_int(const char input) {
-    if (isdigit(input)) { return 1; }
-    else { return 2; }
+    if (isdigit(input)) {
+      return 1;
+    }
+    else {
+      return 2;
+    }
 }
 
 int char_to_col_id(const char input) {
-    if (isalpha(input)) { return 1; }
-    else if (input == '_') { return 2; }
-    else { return 3; }
+    if (isalpha(input)) {
+      return 1;
+    }
+    else if (input == '_') {
+      return 2;
+    }
+    else {
+      return 3;
+    }
 }
 
 int intDFSM(const std::string str) {
@@ -100,9 +110,12 @@ int intDFSM(const std::string str) {
         startingState = stateTable[startingState][col];
     }
     if (startingState == acceptState[0]) { return 1; }
-    else { return 0; }
+    else {
+      return 0;
+    }
 }
 
+/* This changes the state of each identifier, checking each keyword, opereator, and separator*/
 int identifierDFSM(const std::string str) {
     int startingState = 1;
     int stateTable[6][3] = { 0, 'l', '_', 1, 2, 5, 2, 3, 4, 3, 3, 4, 4, 3, 4, 5, 5, 5 };
@@ -112,37 +125,53 @@ int identifierDFSM(const std::string str) {
     for (int i = 0; i < size; i++) {
         if (isOperator(str[i]) || isSeparator(str[i])) {
             for (int i = 0; i < 2; i++) {
-                if (startingState == acceptState[i]) { return 1; }
+                if (startingState == acceptState[i]) {
+                  return 1;
+                }
             }
         }
         int col = char_to_col_id(str[i]);
         startingState = stateTable[startingState][col];
         /* If failure detected */
-        if (startingState == 0) { return 0; }
+        if (startingState == 0) {
+          return 0;
+        }
     }
     bool keywordCheck = isKeyword(str);
     for (int i = 0; i < 3; i++) {
-        if (startingState == acceptState[i] && keywordCheck == false) { return 1; }     //If identifier, return 1. 
-        else if (startingState == acceptState[i] && keywordCheck == true) { return 2; } //If keyword, return 2.
+        if (startingState == acceptState[i] && keywordCheck == false) {
+          return 1;
+        }     //If identifier, return 1.
+        else if (startingState == acceptState[i] && keywordCheck == true) {
+          return 2;
+        } //If keyword, return 2.
     }
 }
 
+/* checks if floats contains decimals and confirms that it is an identifier*/
 bool isDecimal(char ch) {
     if (ch == '.') {
         return true;
     }
     return false;
 }
+
+/* Contains a list of separators and determine whether the string in the test cases is included. Function
+returns true if exists, false otherwise  */
 bool isSeparator(char ch) {
     if (ch == '(' || ch == ')' || ch == '{' || ch == '}' || ch == ';' || ch == '[' || ch == ']') { return true; }
     else { return false; }
 }
 
+/* Contains a list of operators and determine whether the string in the test cases is included. Function
+returns true if exists, false otherwise*/
 bool isOperator(char ch) {
     if (ch == '<' || ch == '>' || ch == '+' || ch == '-' || ch == '/' || ch == '*' || ch == ':' || ch == '=') { return true; }
     else { return false; }
 }
 
+/* Contains a list of inputs and have them set equal to a string. Function returns true if string is
+found in list, else otherwise*/
 bool isKeyword(std::string st) {
     if (st == "if" || st == "fi" || st == "else" || st == "put" || st == "get" || st == "if" || st == "while" ||
         st == "return" || st == "bool" || st == "true" || st == "false" || st == "int" || st == "double"
