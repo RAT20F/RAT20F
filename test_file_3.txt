@@ -10,7 +10,7 @@ int main ()
 	z = x + y;
 	return z;
  }
- else if (x > y)
+ fi (x > y)
  {
  	z = x - y;
 	return z;
