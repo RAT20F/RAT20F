@@ -1,13 +1,24 @@
-int main () {
+int main () 
+{
  int x = 1;
  int y = 2;
  int z = 0;
  float num = 12.57;
  
- if ( x < y) {
+ if ( x < y) 
+ {
 	z = x + y;
 	return z;
  }
+ else if (x > y)
+ {
+ 	z = x - y;
+	return z;
+ }
+ else {
+ 	z = y
+	return z;
+}
  
  return num; 
  
