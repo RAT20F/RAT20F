@@ -1,0 +1,12 @@
+Token '	' Lexeme
+Keyword	if
+Separator	(
+Integer	1
+Operator	<
+Integer	2
+Separator	)
+Separator	{
+Keyword	return
+Integer	1
+Separator	;
+Separator	}

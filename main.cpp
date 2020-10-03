@@ -31,8 +31,8 @@ void getFile(std::ifstream& file, int& i) {
   
 }
 
-/* getTestFiles scans each test_file and displays an output file listing all separators, operators, and keywords.*/
-void getTestfiles(std::ifstream& file, int& i){
+/* scanFiles scans each test_file and displays an output file listing all separators, operators, and keywords.*/
+void scanFiles(std::ifstream& file, int& i){
 
     std::string new_test_case = "";
     std::string base("-test-output.txt");
