@@ -25,11 +25,25 @@ std::vector<std::string> lexer(std::string input) {
         else if (intDFSM(input) == isdigit(input[x])) {
             int y = x;
             std::string tempInt;
-            while (intDFSM(input) == isdigit(input[y])) {
+            bool real_holder = false;
+
+            while (intDFSM(input) == isdigit(input[y]) || isDecimal(input[y]))  {
+                if(isDecimal(input[y])){
+                    real_holder = true;
+                }
                 tempInt.push_back(input[y]);
                 y++;
             }
-            token = "Integer";
+            //token = "Integer";
+            
+            if(real_holder){
+                token = "Real";
+                }
+
+            else {
+                token = "Integer";
+            }
+            
             lexeme = tempInt;
             result = token + "\t" + lexeme;
             records.push_back(result);
@@ -113,6 +127,12 @@ int identifierDFSM(const std::string str) {
     }
 }
 
+bool isDecimal(char ch) {
+    if (ch == '.') {
+        return true;
+    }
+    return false;
+}
 bool isSeparator(char ch) {
     if (ch == '(' || ch == ')' || ch == '{' || ch == '}' || ch == ';' || ch == '[' || ch == ']') { return true; }
     else { return false; }

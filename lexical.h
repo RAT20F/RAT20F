@@ -16,5 +16,6 @@ int char_to_col_id(const char input);
 bool isSeparator(char ch);
 bool isOperator(char ch);
 bool isKeyword(std::string st);
+bool isDecimal(char ch);
 
 #endif
