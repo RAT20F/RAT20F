@@ -1,1 +1,4 @@
-if (num_1 < num_2) { return num_1; }
+if (num_1 < num_2) 
+{
+  return num_1; 
+}
